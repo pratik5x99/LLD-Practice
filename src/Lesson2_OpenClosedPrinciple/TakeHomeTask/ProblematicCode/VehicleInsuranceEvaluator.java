@@ -6,7 +6,6 @@ class InsuranceQuote {
 
 class Vehicle {
 
-    
 }
 
 class Car extends Vehicle {
@@ -24,6 +23,7 @@ class Truck extends Vehicle {
     }
 
     public boolean transportsHazardousMaterials() {
+        return false;
     }
 }
 
