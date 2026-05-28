@@ -4,6 +4,6 @@ public class PdfType implements DocType {
 
     @Override
     public String generate() {
-        System.out.println("Genrating PDF...");
+        return "Genrating PDF...";
     }
 }
