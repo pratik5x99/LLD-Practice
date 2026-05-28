@@ -8,7 +8,7 @@ class InsuranceQuote {
 }
 
 interface Vehicle {
-    double getFinalPremium();
+    double getFinalPremium(double basePremium);
     String getInsurancePolicy();
 
 }
@@ -16,19 +16,14 @@ interface Vehicle {
 class Car implements Vehicle {
 
     public boolean hasAdvancedAirbags() {
+        ;
     }
 
     public boolean isSportsModel() {
+        ;
     }
-    public double getFinalPremium(){
-        double finalPremium = 500.0;
-        if (this.hasAdvancedAirbags()) {
-            finalPremium -= 50.0; // Discount for safety
-        }
-        if (this.isSportsModel()) {
-            finalPremium += 200.0; // Penalty for fast cars
-        }
-        return finalPremium;
+    public double getFinalPremium(double basePremium){
+    return new CarInsurancePremium().getPremium(this,basePremium);
     }
 
     @Override
@@ -48,14 +43,9 @@ class Truck implements Vehicle {
     }
 
     @Override
-    public double getFinalPremium() {
-        double finalPremium = 500.0;
-        finalPremium += (this.getCargoCapacityTons() * 100.0); // Heavy trucks cost more
+    public double getFinalPremium(double basePremium) {
 
-        if (this.transportsHazardousMaterials()) {
-            finalPremium *= 2.0; // Double the price for dangerous cargo
-        }
-        return finalPremium;
+        return new TruckInsurancePremium().getPremium(this,basePremium);
     }
 
     @Override
@@ -68,8 +58,8 @@ public class VehicleInsuranceEvaluator {
 
     // The single entry point for all insurance calculations
     public InsuranceQuote evaluateInsurance(Vehicle vehicle) {
-
-        return new InsuranceQuote(vehicle.getFinalPremium(),vehicle.getInsurancePolicy());
+        double basePremium = 500.0;
+        return new InsuranceQuote(vehicle.getFinalPremium(basePremium),vehicle.getInsurancePolicy());
 
 
 
